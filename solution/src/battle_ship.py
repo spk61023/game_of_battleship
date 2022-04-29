@@ -9,4 +9,6 @@ class BattleShip:
         game = Game()
         game.play_game()
 
-playbattleships = BattleShip()
+
+if __name__ == '__main__':
+    playbattleships = BattleShip()

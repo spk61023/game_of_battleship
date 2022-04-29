@@ -15,20 +15,24 @@ class Player:
     def setup_board(self,grid_size):
         ''' setup board of player with random ship placement'''
         self.board.set_player_board(self.board,grid_size)
+        self.board.confirm_all_ships(self.no_of_ships)
 
-    def strike(self,guess_col,guess_row):
+    def strike(self,guess_row,guess_col):
         ''' Register Hit, Miss and set value to board'''
         print("STRIKE IS IN PROGRESS")
-        result = self.board.compare_ship_location(guess_col,guess_row)
-        print("result",result)
-        # if guess_col == self.board.board[self.board.ship_col] and guess_row == self.board.board[self.board.ship_row]:
-        #     print("HIT")
-        #     self.board.board[guess_col][guess_row]="X"
-        #     self.hit +=1
-        # else:
-        #     print("MISS")
-        #     self.miss +=1
-        #     self.board.board[guess_col][guess_row]="O"
+        try:
+            result = self.board.compare_ship_location(guess_row,guess_col)
+            print("result",result)
+            if result:
+                print("HIT")
+                self.board.board[guess_row][guess_col]="X"
+                self.hit +=1
+            else:
+                print("MISS")
+                self.miss +=1
+                self.board.board[guess_row][guess_col]="O"
+        except Exception as e:
+            print(e)
         print("name ",self.name," hit ",self.hit," miss ",self.miss)
         print("STRIKE COMPLETED")
 
@@ -36,14 +40,8 @@ class Player:
         '''return score of the player'''
         return self.hit
 
-    def make_move(self,guess_col,guess_row):
+    def make_move(self,guess_row,guess_col):
         '''player enters row and col values'''
-        print("Making move",guess_col,guess_row)
-        self.strike(guess_col ,guess_row)
-
-
-
-
-#Test
-#ValueError: invalid literal for int() with base 10: '..'
-#IndexError: list index out of range
+        print("Making move",guess_row,guess_col)
+        self.missiles -=1
+        self.strike(guess_row,guess_col)

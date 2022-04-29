@@ -3,6 +3,7 @@ from player import Player
 GRID_SIZE   = 5
 NO_OF_SHIPS = 5
 MISSILES    = 5
+WIN_THRESHOLD = 3
 
 class Game:
     def __init__(self):
@@ -42,10 +43,11 @@ class Game:
 
             #Terminate if game is drawn
             player_1_damage, player_2_damage = self.get_players_scores()
-            if player_1_damage == player_2_damage and self.player1.missiles == self.player2.missiles:
+            if player_1_damage==WIN_THRESHOLD and player_2_damage==WIN_THRESHOLD:
                 print("GAME IS DRAWN!!")
                 break
         self.calculate_result()
+        self.display_player_boards()
 
     def get_players_scores(self):
         player1_score = self.player1.calculate_score()
